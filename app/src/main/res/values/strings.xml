@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Spok Messenger</string>
+    <string name="TituloLogin">INICIAR SESIÓN</string>
+    <string name="laberUsuario">Usuario</string>
+    <string name="laberPass">Contraseña</string>
+    <string name="textoBotonIngresar">Ingresar</string>
+    <string name="universidad">UNIVERSIDAD CENTRAL DEL ECUADOR</string>
+    <string name="estudiante1">Jácome Escobar José David</string>
+    <string name="estudiante2">Montoya Tite Ángel Gabriel</string>
+</resources>

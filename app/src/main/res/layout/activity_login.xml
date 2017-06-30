@@ -123,6 +123,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp" />
+        android:layout_marginRight="1dp"
+        android:layout_gravity="center_horizontal" />
 
 </android.support.constraint.ConstraintLayout>

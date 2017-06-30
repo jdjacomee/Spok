@@ -31,7 +31,8 @@
             android:layout_height="155dp"
             app:srcCompat="@drawable/logo"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+            tools:layout_editor_absoluteY="0dp"
+            android:layout_gravity="center_horizontal" />
 
         <TextView
             android:id="@+id/textView9"

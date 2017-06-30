@@ -23,7 +23,7 @@
             android:id="@+id/btnLogin"
             android:layout_width="242dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:drawableLeft="@drawable/login"
             android:text="Iniciar Sesión"
             android:textSize="18sp" />
@@ -32,7 +32,7 @@
             android:id="@+id/btnRegistrase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:drawableLeft="@drawable/registrarse"
             android:text="Registrase"
             android:textSize="18sp" />

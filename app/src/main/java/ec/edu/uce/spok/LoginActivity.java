@@ -17,7 +17,6 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
-    int num;
     private EditText txtUser;
     private EditText txtPwd;
     private Button btnIngresar1;

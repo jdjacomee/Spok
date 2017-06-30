@@ -21,7 +21,7 @@
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="242dp"
+            android:layout_width="228dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:drawableLeft="@drawable/login"

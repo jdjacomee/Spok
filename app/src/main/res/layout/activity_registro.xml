@@ -38,9 +38,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.09"
-            android:text="REGISTRO"
             android:gravity="center"
-            android:textSize="18sp" />
+            android:text="REGISTRO"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/txtUsuario"

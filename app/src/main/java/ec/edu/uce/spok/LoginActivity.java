@@ -1,5 +1,6 @@
 package ec.edu.uce.spok;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -65,8 +66,8 @@ public class LoginActivity extends AppCompatActivity {
                 String pass = jDatos.getString("password");
                 if (user.equals(USER) && pass.equals(PASS)) {
                     Toast.makeText(this, "Ingresando...", Toast.LENGTH_SHORT).show();
-                    //Intent i = new Intent(this, NuevaActividad.class);
-                    //startActivity(i);
+                    Intent i = new Intent(this, MensajeriaActivity.class);
+                    startActivity(i);
                 } else
                     Toast.makeText(this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
             } else {

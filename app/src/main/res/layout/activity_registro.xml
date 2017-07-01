@@ -17,9 +17,11 @@
         android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
@@ -29,10 +31,10 @@
             android:id="@+id/imageView3"
             android:layout_width="379dp"
             android:layout_height="155dp"
+            android:layout_gravity="center_horizontal"
             app:srcCompat="@drawable/logo"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp"
-            android:layout_gravity="center_horizontal" />
+            tools:layout_editor_absoluteY="0dp" />
 
         <TextView
             android:id="@+id/textView9"
@@ -49,57 +51,57 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Usuario" />
+            android:hint="Usuario"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword"
-            android:hint="Contraseña" />
+            android:hint="Contraseña"
+            android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/txtNombres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Nombres" />
+            android:hint="Nombres"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/txtApellidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Apellidos" />
+            android:hint="Apellidos"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textEmailAddress"
-            android:hint="Correo Electrónico" />
+            android:hint="Correo Electrónico"
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/txtCelular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="phone"
-            android:hint="Número de celular" />
+            android:hint="Número de celular"
+            android:inputType="phone" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:drawableLeft="@drawable/registrarse"
             android:text="REGISTRARSE"
-            android:textSize="18sp"
-            android:layout_gravity="center_horizontal" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

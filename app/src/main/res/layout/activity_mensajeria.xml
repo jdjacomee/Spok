@@ -15,36 +15,39 @@
     tools:context="ec.edu.uce.spok.Mensajeria.MensajeriaActivity">
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/editText"
-        android:layout_toLeftOf="@+id/btnRegistraseR"
-        android:layout_toStartOf="@+id/btnRegistraseR"
+        android:id="@+id/etMensaje"
+        android:layout_toLeftOf="@+id/btnEnviarMensaje"
+        android:layout_toStartOf="@+id/btnEnviarMensaje"
         android:hint="Escribir mensaje...." />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnRegistraseR"
+        android:id="@+id/btnEnviarMensaje"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:drawableLeft="@drawable/mensaje"
-        android:layout_alignTop="@+id/editText" />
+        android:layout_alignTop="@+id/etMensaje" />
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appBarLayout">
+        android:id="@+id/appBarLayout"
+        >
 
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></android.support.v7.widget.Toolbar>
+            android:layout_height="wrap_content"
+            app:navigationIcon="?attr/homeAsUpIndicator">
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -54,7 +57,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/editText"
+        android:layout_above="@+id/etMensaje"
         tools:listitem="@layout/mensajes_card_view"
         android:layout_below="@+id/appBarLayout"
         android:id="@+id/rvMensajes" />

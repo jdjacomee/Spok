@@ -44,7 +44,7 @@ public class RegistroActivity extends AppCompatActivity {
         etApellidos = (EditText) findViewById(R.id.txtApellidos);
         etEmail = (EditText) findViewById(R.id.txtEmail);
         etCelular = (EditText) findViewById(R.id.txtCelular);
-        btRegistrase = (Button) findViewById(R.id.btnRegistraseR);
+        btRegistrase = (Button) findViewById(R.id.btnEnviarMensaje);
 
         volleyRP = VolleyRP.getInstance(this);
         rq = volleyRP.getRequestQueue();

@@ -104,7 +104,7 @@
                 android:drawableLeft="@drawable/celular" />
 
             <Button
-                android:id="@+id/btnRegistraseR"
+                android:id="@+id/btnEnviarMensaje"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

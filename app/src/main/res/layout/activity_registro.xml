@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context="ec.edu.uce.spok.RegistroActivity">
 
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -15,93 +16,102 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="379dp"
-            android:layout_height="155dp"
-            android:layout_gravity="center_horizontal"
-            app:srcCompat="@drawable/logo"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <TextView
-            android:id="@+id/textView9"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.09"
-            android:gravity="center"
-            android:text="REGISTRO"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/txtUsuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Usuario"
-            android:inputType="textPersonName" />
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="379dp"
+                android:layout_height="155dp"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/logo"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
 
-        <EditText
-            android:id="@+id/txtPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Contraseña"
-            android:inputType="textPassword" />
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.09"
+                android:gravity="center"
+                android:text="REGISTRO"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/txtNombres"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Nombres"
-            android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/txtUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Usuario"
+                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/usuario2" />
 
-        <EditText
-            android:id="@+id/txtApellidos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Apellidos"
-            android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/txtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Contraseña"
+                android:inputType="textPassword"
+                android:drawableLeft="@drawable/pass2" />
 
-        <EditText
-            android:id="@+id/txtEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Correo Electrónico"
-            android:inputType="textEmailAddress" />
+            <EditText
+                android:id="@+id/txtNombres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nombres"
+                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/nombres" />
 
-        <EditText
-            android:id="@+id/txtCelular"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Número de celular"
-            android:inputType="phone" />
+            <EditText
+                android:id="@+id/txtApellidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Apellidos"
+                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/nombres" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:drawableLeft="@drawable/registrarse"
-            android:text="REGISTRARSE"
-            android:textSize="18sp" />
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Correo Electrónico"
+                android:inputType="textEmailAddress"
+                android:drawableLeft="@drawable/email" />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/txtCelular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Número de celular"
+                android:inputType="phone"
+                android:drawableLeft="@drawable/celular" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@drawable/registrarse"
+                android:text="REGISTRARSE"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

@@ -50,22 +50,22 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txtUsuario"
+                android:id="@+id/txtUsuarioR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/usuario2"
                 android:ems="10"
                 android:hint="Usuario"
-                android:inputType="textPersonName"
-                android:drawableLeft="@drawable/usuario2" />
+                android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/txtPassword"
+                android:id="@+id/txtPasswordR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/pass2"
                 android:ems="10"
                 android:hint="Contraseña"
-                android:inputType="textPassword"
-                android:drawableLeft="@drawable/pass2" />
+                android:inputType="textPassword" />
 
             <EditText
                 android:id="@+id/txtNombres"
@@ -104,7 +104,7 @@
                 android:drawableLeft="@drawable/celular" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnRegistraseR"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

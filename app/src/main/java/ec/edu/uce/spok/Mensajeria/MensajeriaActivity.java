@@ -28,6 +28,7 @@ public class MensajeriaActivity extends AppCompatActivity {
     private List<Mensaje>listamensajes;
     private MensajeriaAdapter adapter;
     private int numLineas=1;
+    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

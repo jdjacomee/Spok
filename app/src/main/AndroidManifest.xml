@@ -3,6 +3,11 @@
     package="ec.edu.uce.spok">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <protected-broadcast android:name="android.intent.action.MEDIA_MOUNTED" />
 
     <application
         android:allowBackup="true"
@@ -19,7 +24,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".RegistroActivity"></activity>
+        <activity
+            android:name=".RegistroActivity"
+            android:configChanges="screenSize|orientation"></activity>
         <activity android:name=".Mensajeria.MensajeriaActivity"></activity>
     </application>
 

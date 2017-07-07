@@ -24,10 +24,35 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity"></activity>
+
         <activity
             android:name=".RegistroActivity"
             android:configChanges="screenSize|orientation"></activity>
         <activity android:name=".Mensajeria.MensajeriaActivity"></activity>
+
+        <!--tokens a enviar, enviar notificaciones, se actualizan cada segundo -->
+        <service
+            android:name=".Servicios.FirebaseId"
+
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!--recibir notificaciones en tiempo real -->
+        <service
+            android:name=".Servicios.FirebaseServiceMensajes"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
     </application>
 
 </manifest>

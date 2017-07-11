@@ -60,8 +60,8 @@ public class RegistroActivity extends AppCompatActivity {
                 String email = etEmail.getText().toString();
                 String numCel = etCelular.getText().toString();
 
-                if (usu.equals("") || pass.equals("")) {
-                    Toast.makeText(RegistroActivity.this, "Los campos usuario y contraseña son requeridos", Toast.LENGTH_SHORT).show();
+                if (usu.equals("") || pass.equals("") || nombres.equals("") || apellidos.equals("") || email.equals("") || numCel.equals("")) {
+                    Toast.makeText(RegistroActivity.this, "Todos los campos son requeridos", Toast.LENGTH_SHORT).show();
                 } else {
                     registrarUsuario(usu, pass, nombres, apellidos, email, numCel);
                 }

@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (user.equals(USER) && pass.equals(PASS)) {
                     Toast.makeText(this, "Ingresando...", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(this, MensajeriaActivity.class);
+                    i.putExtra("Usuario", USER);
                     startActivity(i);
                 } else
                     Toast.makeText(this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();

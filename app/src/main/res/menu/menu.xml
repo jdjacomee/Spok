@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Settings, should always be in the overflow -->
+    <item
+        android:id="@+id/action_actualizar"
+        android:title="Actualizar datos"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_eliminar"
+        android:title="Eliminar cuenta"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_cerrar_sesion"
+        android:title="Cerrar Sesión"
+        app:showAsAction="never" />
+
+</menu>

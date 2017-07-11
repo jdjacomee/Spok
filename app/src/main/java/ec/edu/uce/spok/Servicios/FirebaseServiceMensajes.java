@@ -25,37 +25,37 @@ public class FirebaseServiceMensajes extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         //obtener datos de firebase
-        String mensaje=remoteMessage.getData().get("mensaje");
-        String hora=remoteMessage.getData().get("hora");
-        mensaje(mensaje,hora);
+        String mensaje = remoteMessage.getData().get("mensaje");
+        String hora = remoteMessage.getData().get("hora");
+        mensaje(mensaje, hora);
         showNotification();
     }
 
-    private void mensaje(String mensaje, String hora ){
-        Intent i=new Intent(MensajeriaActivity.MENSAJE);
-        i.putExtra("key_mensaje",mensaje);
-        i.putExtra("key_hora",hora);
+    private void mensaje(String mensaje, String hora) {
+        Intent i = new Intent(MensajeriaActivity.MENSAJE);
+        i.putExtra("key_mensaje", mensaje);
+        i.putExtra("key_hora", hora);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
     }
 
-    private void showNotification(){
-        Intent i =new Intent(this,MensajeriaActivity.class);
-        PendingIntent pendingIntent=PendingIntent.getActivity(this,0,i,PendingIntent.FLAG_ONE_SHOT);
+    private void showNotification() {
+        Intent i = new Intent(this, MensajeriaActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_ONE_SHOT);
 
-        Uri sonidonotificacion= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri sonidonotificacion = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        Builder builder=new Builder(this);
+        Builder builder = new Builder(this);
         builder.setAutoCancel(true);
         builder.setContentTitle("Alerta SpokMessenger");
         builder.setContentText("Alguien te envió un mensaje");
         builder.setSound(sonidonotificacion);
-        builder.setSmallIcon(R.drawable.notificacionIcono);
+        //builder.setSmallIcon(R.drawable.notificacionIcono);
+        builder.setSmallIcon(R.drawable.logo);
         builder.setTicker("Esto es un ticker");
         builder.setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0,builder.build());
-
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
 
 
     }

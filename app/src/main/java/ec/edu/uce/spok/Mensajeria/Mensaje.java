@@ -14,7 +14,6 @@ public class Mensaje {
 
     }
 
-
     public String getId() {
         return id;
     }

@@ -8,14 +8,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
+import ec.edu.uce.spok.Amigos.AmigosActivity;
 import ec.edu.uce.spok.Mensajeria.MensajeriaActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -24,10 +29,13 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtPwd;
     private Button btnIngresar1;
     private static final String URL_SPOK = "https://spok.000webhostapp.com/php/obtenerPorUsuario.php?usuario=";
+
+    private static final String IP_TOKEN="ALGUNA URL DE LA BD";
+
     private VolleyRP volleyRP;
     private RequestQueue rq;
-    private String USER;
-    private String PASS;
+    private String USER="";
+    private String PASS="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +75,21 @@ public class LoginActivity extends AppCompatActivity {
                 String user = jDatos.getString("usuario");
                 String pass = jDatos.getString("password");
                 if (user.equals(USER) && pass.equals(PASS)) {
-                    Toast.makeText(this, "Ingresando...", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(this, MensajeriaActivity.class);
-                    i.putExtra("Usuario", USER);
-                    startActivity(i);
+
+                    String token=FirebaseInstanceId.getInstance().getToken();
+
+                    if(token!=null ){
+                        //versiones de los android para los token
+                        if((""+token.charAt(0)).equals("{")){
+                        JSONObject js=new JSONObject(token);
+                        String tokenEditado=js.getString("token");
+                        cargarToken(token);
+                        }else{
+                            cargarToken(token);
+                        }
+                    }else{
+                        Toast.makeText(this, "Token nulo", Toast.LENGTH_SHORT).show();
+                    }
                 } else
                     Toast.makeText(this, "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
             } else {
@@ -80,6 +99,30 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    private void cargarToken(String token){
+        HashMap<String, String>hashMapToken=new HashMap<>();
+        hashMapToken.put("id",USER);
+        hashMapToken.put("token",token);
+
+        JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, IP_TOKEN, new JSONObject(hashMapToken),new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject datos) {
+                Toast.makeText(LoginActivity.this, "Token se subio a la BD", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(LoginActivity.this, AmigosActivity.class);
+                i.putExtra("key_emisor",USER);
+                startActivity(i);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LoginActivity.this, "Token no se subio a la DB", Toast.LENGTH_SHORT).show();
+            }
+        });
+        VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
+    }
+
+
 
     public void solicitarJSON(String URL) {
         JsonObjectRequest solicitud = new JsonObjectRequest(URL, null, new Response.Listener<JSONObject>() {

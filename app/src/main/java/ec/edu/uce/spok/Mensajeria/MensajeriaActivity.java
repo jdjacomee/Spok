@@ -41,6 +41,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
+import ec.edu.uce.spok.LoginActivity;
 import ec.edu.uce.spok.Mensajeria.Mensaje;
 import ec.edu.uce.spok.R;
 import ec.edu.uce.spok.RegistroActivity;
@@ -57,11 +58,20 @@ public class MensajeriaActivity extends AppCompatActivity {
     private EditText etMensaje;
     private List<Mensaje> listamensajes;
     private MensajeriaAdapter adapter;
+    private EditText etreceptor;
 
     private VolleyRP volleyRP;
     private RequestQueue rq;
 
+
+    private String MENSAJE_ENVIAR="";
+    private String EMISOR="";
+    private String RECEPTOR="";
     private String USER;
+
+    private static final String IP_MENSAJE="LA URL DEL POSTMAN";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +104,18 @@ public class MensajeriaActivity extends AppCompatActivity {
 
         listamensajes = new ArrayList<>();
 
+
+        Intent  extras=getIntent();
+        Bundle bundle2=extras.getExtras();
+        if(bundle2!=null){
+            EMISOR=bundle2.getString("key_emisor");
+        }
+
         btnenviar = (Button) findViewById(R.id.btnEnviarMensaje);
         etMensaje = (EditText) findViewById(R.id.etMensaje);
 
+
+        etreceptor=(EditText)findViewById(R.id.etreceptor);
 
         adapter = new MensajeriaAdapter(listamensajes, this);
         rv.setAdapter(adapter);
@@ -111,23 +130,31 @@ public class MensajeriaActivity extends AppCompatActivity {
                 hora = calendario.get(Calendar.HOUR_OF_DAY);
                 minutos = calendario.get(Calendar.MINUTE);
                 String horat = hora + ":" + minutos;
-                String mensaje = etMensaje.getText().toString();
-                String token = FirebaseInstanceId.getInstance().getToken();
 
-                if (!mensaje.isEmpty()) {
+                String mensaje = validarCadena(etMensaje.getText().toString());
+
+
+                if (!mensaje.isEmpty()&&!RECEPTOR.isEmpty()) {
+                    MENSAJE_ENVIAR=mensaje;
+                    RECEPTOR=etreceptor.getText().toString();
+                    enviarMensaje();
                     crearMensaje(mensaje, horat, 1);
                     etMensaje.setText("");
                 }
 
-                if (token != null) {
+             //   if (token != null) {
 
-                    Toast.makeText(MensajeriaActivity.this, "Mensaje enviado", Toast.LENGTH_SHORT).show();
-                }
+               //     Toast.makeText(MensajeriaActivity.this, "Mensaje enviado", Toast.LENGTH_SHORT).show();
+                //}
                 setScrollBarMensajes();
 
 
             }
         });
+
+
+
+
 
         receiver = new BroadcastReceiver() {
             @Override
@@ -140,6 +167,16 @@ public class MensajeriaActivity extends AppCompatActivity {
             }
         };
 
+    }
+
+    //problemas como: "  " , "      habla"
+    private String validarCadena(String cadena){
+        for(int i=0;i<cadena.length();i++){
+            if(!(""+cadena.charAt(i)).equals(" ")){
+                return cadena.substring(i,cadena.length());
+            }
+        }
+        return " ";
     }
 
     @Override
@@ -245,6 +282,32 @@ public class MensajeriaActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
     }
+
+
+    private void enviarMensaje(){
+
+        HashMap<String, String>hashMapToken=new HashMap<>();
+        hashMapToken.put("emisor",EMISOR);
+        hashMapToken.put("receptor",RECEPTOR);
+        hashMapToken.put("mensaje",MENSAJE_ENVIAR);
+
+        JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, IP_MENSAJE, new JSONObject(hashMapToken),new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject datos) {
+                Toast.makeText(MensajeriaActivity.this, "Token se subio a la BD", Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MensajeriaActivity.this, "TOcurrio un error fatal", Toast.LENGTH_SHORT).show();
+            }
+        });
+        VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
+
+    }
+
+
 
     public void setScrollBarMensajes() {
 

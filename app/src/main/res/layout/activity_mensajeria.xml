@@ -44,7 +44,7 @@
         android:drawableLeft="@drawable/mensaje"
         android:layout_alignTop="@+id/etMensaje" />
 
-    <!--<android.support.design.widget.AppBarLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/appBarLayout"
@@ -54,9 +54,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:navigationIcon="?attr/homeAsUpIndicator">
+
+            <EditText
+                android:id="@+id/etreceptor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
         </android.support.v7.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>-->
+    </android.support.design.widget.AppBarLayout>
 
 
     <android.support.v7.widget.RecyclerView

@@ -25,10 +25,20 @@
         </activity>
         <activity android:name=".LoginActivity"></activity>
 
+
+        <activity android:name=".Amigos.AmigosActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".RegistroActivity"
             android:configChanges="screenSize|orientation"></activity>
         <activity android:name=".Mensajeria.MensajeriaActivity"></activity>
+
 
         <!--tokens a enviar, enviar notificaciones, se actualizan cada segundo -->
         <service

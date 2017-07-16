@@ -27,18 +27,21 @@ public class FirebaseServiceMensajes extends FirebaseMessagingService {
         //obtener datos de firebase
         String mensaje = remoteMessage.getData().get("mensaje");
         String hora = remoteMessage.getData().get("hora");
+        String cabecera=remoteMessage.getData().get("cabecera");
+        String cuerpo=remoteMessage.getData().get("cuerpo");
         mensaje(mensaje, hora);
-        showNotification();
+        showNotification(cabecera,cuerpo);
     }
 
     private void mensaje(String mensaje, String hora) {
         Intent i = new Intent(MensajeriaActivity.MENSAJE);
         i.putExtra("key_mensaje", mensaje);
         i.putExtra("key_hora", hora);
+
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
     }
 
-    private void showNotification() {
+    private void showNotification(String cabecera, String cuerpo) {
         Intent i = new Intent(this, MensajeriaActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_ONE_SHOT);
 
@@ -46,10 +49,10 @@ public class FirebaseServiceMensajes extends FirebaseMessagingService {
 
         Builder builder = new Builder(this);
         builder.setAutoCancel(true);
-        builder.setContentTitle("Alerta SpokMessenger");
-        builder.setContentText("Alguien te envió un mensaje");
+        builder.setContentTitle(cabecera);
+        builder.setContentText(cuerpo);
         builder.setSound(sonidonotificacion);
-        //builder.setSmallIcon(R.drawable.notificacionIcono);
+        //builder.setSmallIcon(R.drawable.notificacionicono2);
         builder.setSmallIcon(R.drawable.logo);
         builder.setTicker("Esto es un ticker");
         builder.setContentIntent(pendingIntent);

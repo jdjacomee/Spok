@@ -16,6 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,10 +24,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
+
+        <activity
+            android:name=".LoginActivity"
+            android:configChanges="screenSize|orientation"></activity>
 
 
-        <activity android:name=".Amigos.AmigosActivity">
+        <activity
+            android:name=".Amigos.AmigosActivity"
+            android:configChanges="screenSize|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,10 +40,15 @@
             </intent-filter>
         </activity>
 
+
         <activity
             android:name=".RegistroActivity"
             android:configChanges="screenSize|orientation"></activity>
-        <activity android:name=".Mensajeria.MensajeriaActivity"></activity>
+
+
+        <activity
+            android:name=".Mensajeria.MensajeriaActivity"
+            android:configChanges="screenSize|orientation"></activity>
 
 
         <!--tokens a enviar, enviar notificaciones, se actualizan cada segundo -->

@@ -1,8 +1,8 @@
 package ec.edu.uce.spok;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,14 +28,14 @@ public class LoginActivity extends AppCompatActivity {
     private EditText txtUser;
     private EditText txtPwd;
     private Button btnIngresar1;
-    private static final String URL_SPOK = "https://spok.000webhostapp.com/php/obtenerPorUsuario.php?usuario=";
+    private static final String URL_LOGIN = "https://spok.000webhostapp.com/php/obtenerPorUsuario.php?usuario=";
 
-    private static final String IP_TOKEN="ALGUNA URL DE LA BD";
+    private static final String URL_TOKEN = "https://spok.000webhostapp.com/php/insertarActualizarToken.php";
 
     private VolleyRP volleyRP;
     private RequestQueue rq;
-    private String USER="";
-    private String PASS="";
+    private String USER = "";
+    private String PASS = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
     public void login(String user, String password) {
         USER = user;
         PASS = password;
-        solicitarJSON(URL_SPOK + user);
+        solicitarJSON(URL_LOGIN + user);
     }
 
     public void verificarDatos(JSONObject datos) {
@@ -76,18 +76,18 @@ public class LoginActivity extends AppCompatActivity {
                 String pass = jDatos.getString("password");
                 if (user.equals(USER) && pass.equals(PASS)) {
 
-                    String token=FirebaseInstanceId.getInstance().getToken();
+                    String token = FirebaseInstanceId.getInstance().getToken();
 
-                    if(token!=null ){
+                    if (token != null) {
                         //versiones de los android para los token
-                        if((""+token.charAt(0)).equals("{")){
-                        JSONObject js=new JSONObject(token);
-                        String tokenEditado=js.getString("token");
-                        cargarToken(token);
-                        }else{
+                        if (("" + token.charAt(0)).equals("{")) {
+                            JSONObject js = new JSONObject(token);
+                            String tokenEditado = js.getString("token");
+                            cargarToken(token);
+                        } else {
                             cargarToken(token);
                         }
-                    }else{
+                    } else {
                         Toast.makeText(this, "Token nulo", Toast.LENGTH_SHORT).show();
                     }
                 } else
@@ -100,17 +100,23 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void cargarToken(String token){
-        HashMap<String, String>hashMapToken=new HashMap<>();
-        hashMapToken.put("id",USER);
-        hashMapToken.put("token",token);
+    private void cargarToken(String token) {
+        HashMap<String, String> hashMapToken = new HashMap<>();
+        hashMapToken.put("usuario", USER);
+        hashMapToken.put("token", token);
 
-        JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, IP_TOKEN, new JSONObject(hashMapToken),new Response.Listener<JSONObject>() {
+        JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_TOKEN, new JSONObject(hashMapToken), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject datos) {
-                Toast.makeText(LoginActivity.this, "Token se subio a la BD", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(LoginActivity.this, AmigosActivity.class);
-                i.putExtra("key_emisor",USER);
+                String obtenido = "";
+                try {
+                    obtenido = datos.getString("Resultado");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(LoginActivity.this, obtenido, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(LoginActivity.this, MensajeriaActivity.class);
+                i.putExtra("key_emisor", USER);
                 startActivity(i);
             }
         }, new Response.ErrorListener() {
@@ -121,7 +127,6 @@ public class LoginActivity extends AppCompatActivity {
         });
         VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
     }
-
 
 
     public void solicitarJSON(String URL) {

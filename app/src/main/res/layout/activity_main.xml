@@ -6,39 +6,6 @@
     android:layout_height="match_parent"
     tools:context="ec.edu.uce.spok.MainActivity">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="86dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginStart="72dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        android:id="@+id/linearLayout2">
-
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="228dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:drawableLeft="@drawable/login"
-            android:text="Iniciar Sesión"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/btnRegistrase"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:drawableLeft="@drawable/registrarse"
-            android:text="Registrase"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
@@ -101,5 +68,40 @@
         android:layout_marginLeft="27dp"
         android:layout_marginRight="27dp"
         android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="88dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginStart="72dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1">
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/login"
+            android:text="Iniciar Sesión"
+            android:gravity="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnRegistrase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:drawableLeft="@drawable/registrarse"
+            android:text="Registrase"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- Settings, should always be in the overflow -->
-    <item
+    <!--<item
         android:id="@+id/action_actualizar"
         android:title="Actualizar datos"
         app:showAsAction="never" />
@@ -11,7 +11,7 @@
     <item
         android:id="@+id/action_eliminar"
         android:title="Eliminar cuenta"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
 
     <item
         android:id="@+id/action_cerrar_sesion"

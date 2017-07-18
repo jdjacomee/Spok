@@ -54,7 +54,7 @@ public class FirebaseServiceMensajes extends FirebaseMessagingService {
         builder.setSound(sonidonotificacion);
         //builder.setSmallIcon(R.drawable.notificacionicono2);
         builder.setSmallIcon(R.drawable.logo);
-        builder.setTicker("Esto es un ticker");
+        builder.setTicker("Mensajes recibidos en Spok Messenger");
         builder.setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

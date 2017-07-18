@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="300dp"
         app:srcCompat="@drawable/logo"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
@@ -72,6 +72,12 @@
             android:hint="@string/laberPass"
             android:inputType="textPassword" />
 
+        <RadioButton
+            android:id="@+id/rbNoCerrarSesion"
+            android:text="No cerrar sesión"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/btnIngresar"
             android:layout_width="190dp"
@@ -82,5 +88,60 @@
             android:textSize="18sp" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnRegistrarse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/registrarse"
+        android:text="Crear una cuenta de Spok Messenger"
+        android:textSize="12sp"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="35dp" />
+
+    <!--<TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/universidad"
+        android:textSize="8sp"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/estudiante1"
+        android:textSize="8sp"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        android:layout_marginStart="21dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/textView5"
+        android:layout_marginLeft="21dp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/estudiante2"
+        android:textSize="8sp"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintRight_toRightOf="@+id/textView6"
+        android:layout_marginBottom="6dp"
+        android:layout_marginRight="1dp" />-->
 
 </android.support.constraint.ConstraintLayout>

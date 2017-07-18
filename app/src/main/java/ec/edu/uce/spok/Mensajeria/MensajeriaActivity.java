@@ -2,12 +2,10 @@ package ec.edu.uce.spok.Mensajeria;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +24,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -35,6 +32,8 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
+import ec.edu.uce.spok.LoginActivity;
+import ec.edu.uce.spok.Preferences;
 import ec.edu.uce.spok.R;
 import ec.edu.uce.spok.VolleyRP;
 
@@ -50,6 +49,7 @@ public class MensajeriaActivity extends AppCompatActivity {
     private List<Mensaje> listamensajes;
     private MensajeriaAdapter adapter;
     private EditText etreceptor;
+    private Toolbar myToolbar;
 
     private VolleyRP volleyRP;
     private RequestQueue rq;
@@ -58,7 +58,6 @@ public class MensajeriaActivity extends AppCompatActivity {
     private String MENSAJE_ENVIAR = "";
     private String EMISOR = "";
     private String RECEPTOR = "";
-    private String USER;
 
     private static final String URL_MENSAJERIA = "https://spok.000webhostapp.com/php/procesoMensajeria.php";
 
@@ -68,16 +67,13 @@ public class MensajeriaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mensajeria);
 
-        Bundle bundle = getIntent().getExtras();
-        USER = bundle.getString("Usuario");
+        EMISOR = Preferences.obtenerPreferenceString(this, Preferences.USUARIO_PREFERENCE);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MensajeriaActivity.this, "Regresar", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -93,13 +89,6 @@ public class MensajeriaActivity extends AppCompatActivity {
         rv.setLayoutManager(llm);
 
         listamensajes = new ArrayList<>();
-
-
-        Intent extras = getIntent();
-        Bundle bundle2 = extras.getExtras();
-        if (bundle2 != null) {
-            EMISOR = bundle2.getString("key_emisor");
-        }
 
         btnenviar = (Button) findViewById(R.id.btnEnviarMensaje);
         etMensaje = (EditText) findViewById(R.id.etMensaje);
@@ -130,6 +119,13 @@ public class MensajeriaActivity extends AppCompatActivity {
                     enviarMensaje();
                     crearMensaje(mensaje, horat, 1);
                     etMensaje.setText("");
+                } else {
+                    if (mensaje.isEmpty()) {
+                        Toast.makeText(MensajeriaActivity.this, "El mensaje está vacio", Toast.LENGTH_SHORT).show();
+                    }
+                    if (RECEPTOR.isEmpty()) {
+                        Toast.makeText(MensajeriaActivity.this, "Por favor, ingrese el usuario al que se le enviará el mensaje", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 //   if (token != null) {
@@ -176,73 +172,16 @@ public class MensajeriaActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_actualizar:
-                Toast.makeText(this, "Actualizar cuenta", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.action_eliminar:
-                Toast.makeText(this, "Eliminar cuenta", Toast.LENGTH_SHORT).show();
-                AlertDialog a = createSimpleDialog();
-                return true;
             case R.id.action_cerrar_sesion:
-                Toast.makeText(this, "Cerrar Sesión", Toast.LENGTH_SHORT).show();
+                Preferences.savePreferenceBoolean(MensajeriaActivity.this, false, Preferences.PREFERENCE_ESTADO_BUTTON_SESION);
+                Intent i = new Intent(MensajeriaActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    public AlertDialog createSimpleDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MensajeriaActivity.this);
-
-        builder.setTitle("Confirmación")
-                .setMessage("¿Desea eliminar su cuenta de usuario?")
-                .setPositiveButton("Si",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //eliminarUsuario("");
-                                Toast.makeText(MensajeriaActivity.this, "Cuenta eliminada", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                .setNegativeButton("CANCELAR",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-
-        return builder.create();
-    }
-
-    private void eliminarUsuario(String usu) {
-        HashMap<String, String> hmToken = new HashMap<>();
-        hmToken.put("usuario", usu);
-
-        JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_ELIMINAR, new JSONObject(hmToken), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject datos) {
-                try {
-                    String estado = datos.getString("Insertado");
-                    if (estado.equals("SI")) {
-                        Toast.makeText(MensajeriaActivity.this, "Usuario eliminado", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(MensajeriaActivity.this, "No se pudo eliminar", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    Toast.makeText(MensajeriaActivity.this, "No se pudo eliminar", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MensajeriaActivity.this, "Error...", Toast.LENGTH_SHORT).show();
-            }
-        });
-        VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
-    }
-
 
     protected void onPause() {
         super.onPause();

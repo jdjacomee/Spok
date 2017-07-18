@@ -19,7 +19,15 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:navigationIcon="?attr/homeAsUpIndicator" />
+        app:navigationIcon="?attr/homeAsUpIndicator">
+
+        <EditText
+            android:id="@+id/etreceptor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Receptor" />
+
+    </android.support.v7.widget.Toolbar>
 
     <EditText
         android:layout_width="match_parent"
@@ -44,11 +52,10 @@
         android:drawableLeft="@drawable/mensaje"
         android:layout_alignTop="@+id/etMensaje" />
 
-    <android.support.design.widget.AppBarLayout
+    <!--<android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/appBarLayout"
-        >
+        android:id="@+id/appBarLayout">
 
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
@@ -58,11 +65,10 @@
             <EditText
                 android:id="@+id/etreceptor"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
         </android.support.v7.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>-->
 
 
     <android.support.v7.widget.RecyclerView

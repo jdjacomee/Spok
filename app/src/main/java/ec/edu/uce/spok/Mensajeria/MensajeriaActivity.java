@@ -86,7 +86,6 @@ public class MensajeriaActivity extends AppCompatActivity {
         rq = volleyRP.getRequestQueue();
 
         rv = (RecyclerView) findViewById(R.id.rvMensajes);
-
         //ordenar mensajes verticalmente
         LinearLayoutManager llm = new LinearLayoutManager(this);
         //teclado se sobrepone a los mensajes

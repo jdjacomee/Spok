@@ -37,6 +37,9 @@ public class LoginActivity extends AppCompatActivity {
     private String USER = "";
     private String PASS = "";
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,7 +118,9 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Toast.makeText(LoginActivity.this, obtenido, Toast.LENGTH_SHORT).show();
+                /////
                 Intent i = new Intent(LoginActivity.this, MensajeriaActivity.class);
+                ////
                 i.putExtra("key_emisor", USER);
                 startActivity(i);
             }

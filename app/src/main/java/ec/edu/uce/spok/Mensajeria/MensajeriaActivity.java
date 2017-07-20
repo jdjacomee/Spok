@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -42,13 +43,13 @@ public class MensajeriaActivity extends AppCompatActivity {
     public static final String MENSAJE = "MENSAJE";
     private BroadcastReceiver receiver;
     private final String URL_ELIMINAR = "https://spok.000webhostapp.com/php/insertarUsuarios.php";
+    private final String URL_ELIMINAR_TOKEN = "https://spok.000webhostapp.com/php/eliminarTokenUsuario.php";
 
     private RecyclerView rv;
     private Button btnenviar;
     private EditText etMensaje;
     private List<Mensaje> listamensajes;
     private MensajeriaAdapter adapter;
-    private EditText etreceptor;
     private Toolbar myToolbar;
 
     private VolleyRP volleyRP;
@@ -66,6 +67,13 @@ public class MensajeriaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mensajeria);
+
+        Intent i = getIntent();
+        Bundle bundle = i.getExtras();
+        if (bundle != null) {
+            RECEPTOR = bundle.getString("key_receptor");
+        }
+
 
         EMISOR = Preferences.obtenerPreferenceString(this, Preferences.USUARIO_PREFERENCE);
 
@@ -93,9 +101,6 @@ public class MensajeriaActivity extends AppCompatActivity {
         btnenviar = (Button) findViewById(R.id.btnEnviarMensaje);
         etMensaje = (EditText) findViewById(R.id.etMensaje);
 
-
-        etreceptor = (EditText) findViewById(R.id.etreceptor);
-
         adapter = new MensajeriaAdapter(listamensajes, this);
         rv.setAdapter(adapter);
 
@@ -110,22 +115,13 @@ public class MensajeriaActivity extends AppCompatActivity {
                 minutos = calendario.get(Calendar.MINUTE);
                 String horat = hora + ":" + minutos;
 
-                String mensaje = validarCadena(etMensaje.getText().toString());
-
-                RECEPTOR = etreceptor.getText().toString();
+                String mensaje = etMensaje.getText().toString().trim();
 
                 if (!mensaje.isEmpty() && !RECEPTOR.isEmpty()) {
                     MENSAJE_ENVIAR = mensaje;
                     enviarMensaje();
                     crearMensaje(mensaje, horat, 1);
                     etMensaje.setText("");
-                } else {
-                    if (mensaje.isEmpty()) {
-                        Toast.makeText(MensajeriaActivity.this, "El mensaje está vacio", Toast.LENGTH_SHORT).show();
-                    }
-                    if (RECEPTOR.isEmpty()) {
-                        Toast.makeText(MensajeriaActivity.this, "Por favor, ingrese el usuario al que se le enviará el mensaje", Toast.LENGTH_SHORT).show();
-                    }
                 }
 
                 //   if (token != null) {
@@ -145,21 +141,13 @@ public class MensajeriaActivity extends AppCompatActivity {
 
                 String mensaje = intent.getStringExtra("key_mensaje");
                 String hora = intent.getStringExtra("key_hora");
-
-                crearMensaje(mensaje, hora, 2);
+                String emisor = intent.getStringExtra("key_emisor_php");
+                if (emisor.equals(RECEPTOR)) {
+                    crearMensaje(mensaje, hora, 2);
+                }
             }
         };
 
-    }
-
-    //problemas como: "  " , "      habla"
-    private String validarCadena(String cadena) {
-        for (int i = 0; i < cadena.length(); i++) {
-            if (!("" + cadena.charAt(i)).equals(" ")) {
-                return cadena.substring(i, cadena.length());
-            }
-        }
-        return " ";
     }
 
     @Override
@@ -174,6 +162,8 @@ public class MensajeriaActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_cerrar_sesion:
                 Preferences.savePreferenceBoolean(MensajeriaActivity.this, false, Preferences.PREFERENCE_ESTADO_BUTTON_SESION);
+                String usuarioLogin = Preferences.obtenerPreferenceString(MensajeriaActivity.this, Preferences.USUARIO_PREFERENCE);
+                eliminarToken(usuarioLogin);
                 Intent i = new Intent(MensajeriaActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
@@ -220,8 +210,7 @@ public class MensajeriaActivity extends AppCompatActivity {
         JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_MENSAJERIA, new JSONObject(hashMapToken), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject datos) {
-                Toast.makeText(MensajeriaActivity.this, "Token se subio a la BD", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(MensajeriaActivity.this, "Token se subio a la BD", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -238,6 +227,35 @@ public class MensajeriaActivity extends AppCompatActivity {
 
         rv.scrollToPosition(adapter.getItemCount() - 1);
     }
+
+    private void eliminarToken(String usu) {
+        HashMap<String, String> hmToken = new HashMap<>();
+        hmToken.put("usuario", usu);
+
+        JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_ELIMINAR_TOKEN, new JSONObject(hmToken), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject datos) {
+                try {
+                    String estado = datos.getString("Eliminado");
+                    if (estado.equals("SI")) {
+                        Toast.makeText(MensajeriaActivity.this, "Eliminado con exito", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(MensajeriaActivity.this, "Algo", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(MensajeriaActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MensajeriaActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
+    }
+
 }
 
 

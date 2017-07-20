@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="250dp"
         app:srcCompat="@drawable/logo"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
@@ -56,21 +56,51 @@
             android:textSize="30sp"
             android:textStyle="bold|italic" />
 
-        <EditText
+        <!--<EditText
             android:id="@+id/txtUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/usuario"
             android:hint="@string/laberUsuario"
-            android:singleLine="true" />
+            android:singleLine="true" />-->
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txtUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/usuario"
+                android:hint="@string/laberUsuario"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<EditText
             android:id="@+id/txtPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/pass"
             android:hint="@string/laberPass"
-            android:inputType="textPassword" />
+            android:inputType="textPassword" />-->
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/txtPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/laberPass"
+                android:drawableStart="@drawable/pass"
+                android:drawableLeft="@drawable/pass"
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
 
         <RadioButton
             android:id="@+id/rbNoCerrarSesion"

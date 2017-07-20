@@ -13,6 +13,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import ec.edu.uce.spok.Mensajeria.MensajeriaActivity;
+import ec.edu.uce.spok.Preferences;
 import ec.edu.uce.spok.R;
 
 /**
@@ -27,17 +28,22 @@ public class FirebaseServiceMensajes extends FirebaseMessagingService {
         //obtener datos de firebase
         String mensaje = remoteMessage.getData().get("mensaje");
         String hora = remoteMessage.getData().get("hora");
-        String cabecera=remoteMessage.getData().get("cabecera");
-        String cuerpo=remoteMessage.getData().get("cuerpo");
-        mensaje(mensaje, hora);
-        showNotification(cabecera,cuerpo);
+        String cabecera = remoteMessage.getData().get("cabecera");
+        String cuerpo = remoteMessage.getData().get("cuerpo");
+        String receptor = remoteMessage.getData().get("receptor");
+        String emisorPHP = remoteMessage.getData().get("emisor");
+        String emisor = Preferences.obtenerPreferenceString(this, Preferences.USUARIO_PREFERENCE);
+        if (emisor.equals(receptor)) {
+            mensaje(mensaje, hora, emisorPHP);
+            showNotification(cabecera, cuerpo);
+        }
     }
 
-    private void mensaje(String mensaje, String hora) {
+    private void mensaje(String mensaje, String hora, String emisor) {
         Intent i = new Intent(MensajeriaActivity.MENSAJE);
         i.putExtra("key_mensaje", mensaje);
         i.putExtra("key_hora", hora);
-
+        i.putExtra("key_emisor_php", emisor);
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
     }
 

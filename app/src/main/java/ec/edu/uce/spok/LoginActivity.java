@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+import ec.edu.uce.spok.Amigos.AmigosActivity;
 import ec.edu.uce.spok.Mensajeria.MensajeriaActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -46,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         if (Preferences.obtenerPreferenceBoolean(this, Preferences.PREFERENCE_ESTADO_BUTTON_SESION)) {
-            Intent i = new Intent(LoginActivity.this, MensajeriaActivity.class);
+            Intent i = new Intent(LoginActivity.this, AmigosActivity.class);
             startActivity(i);
             finish();
         }
@@ -150,14 +151,14 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Toast.makeText(LoginActivity.this, obtenido, Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(LoginActivity.this, MensajeriaActivity.class);
+                Intent i = new Intent(LoginActivity.this, AmigosActivity.class);
                 startActivity(i);
                 finish();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this, "Token no se subio a la DB", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         VolleyRP.addToQueue(solicitud, rq, this, volleyRP);

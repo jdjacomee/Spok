@@ -1,18 +1,19 @@
 package ec.edu.uce.spok.Amigos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
-import ec.edu.uce.spok.Mensajeria.MensajeriaAdapter;
+import ec.edu.uce.spok.Mensajeria.MensajeriaActivity;
 import ec.edu.uce.spok.R;
 
 /**
@@ -24,9 +25,9 @@ public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigosView
     private List<Amigos> amigoslist;
     Context context;
 
-    public AmigosAdapter(List<Amigos> amigosList, Context context){
-        this.amigoslist=amigosList;
-        this.context=context;
+    public AmigosAdapter(List<Amigos> amigosList, Context context) {
+        this.amigoslist = amigosList;
+        this.context = context;
     }
 
 
@@ -38,12 +39,22 @@ public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigosView
 
 
     @Override
-    public void onBindViewHolder(AmigosViewHolder holder, int position) {
+    public void onBindViewHolder(AmigosViewHolder holder, final int position) {
 
         holder.foto.setImageResource(amigoslist.get(position).getFotoPerfil());
-        holder.nombre.setText(amigoslist.get(position).getNombre());
+        holder.usuario.setText(amigoslist.get(position).getUsuario());
+        holder.nombresCompletos.setText(amigoslist.get(position).getNombresCompletos());
         holder.ultmensaje.setText(amigoslist.get(position).getUltimoMensaje());
         holder.horamensaje.setText(amigoslist.get(position).getHoraMensaje());
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, MensajeriaActivity.class);
+                i.putExtra("key_receptor", amigoslist.get(position).getUsuario());
+                context.startActivity(i);
+            }
+        });
 
     }
 
@@ -56,20 +67,22 @@ public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigosView
 
 
     //necesario para crear el AmigosAdapter
-    static class AmigosViewHolder extends RecyclerView.ViewHolder{
+    static class AmigosViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         ImageView foto;
-        TextView nombre;
+        TextView usuario;
+        TextView nombresCompletos;
         TextView ultmensaje;
         TextView horamensaje;
 
         public AmigosViewHolder(View itemView) {
             super(itemView);
-
-            foto=(ImageView)itemView.findViewById(R.id.foto_amigos);
-            nombre=(TextView)itemView.findViewById(R.id.tvamigos_nombre);
-            ultmensaje=(TextView)itemView.findViewById(R.id.tv_mensaje_amigos);
-            horamensaje=(TextView)itemView.findViewById(R.id.tv_hora_amigos);
+            cardView = (CardView) itemView.findViewById(R.id.cardViewAmigos);
+            foto = (ImageView) itemView.findViewById(R.id.foto_amigos);
+            usuario = (TextView) itemView.findViewById(R.id.tvamigos_usuarios);
+            nombresCompletos = (TextView) itemView.findViewById(R.id.tvamigos_nombres_apellidos);
+            ultmensaje = (TextView) itemView.findViewById(R.id.tv_mensaje_amigos);
+            horamensaje = (TextView) itemView.findViewById(R.id.tv_hora_amigos);
         }
     }
 }

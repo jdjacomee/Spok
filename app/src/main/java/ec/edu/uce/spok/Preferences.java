@@ -13,11 +13,13 @@ public class Preferences {
     public static final String PREFERENCE_ESTADO_BUTTON_SESION = "estadoSesion";
     public static final String USUARIO_PREFERENCE = "usuarioLogueado";
 
+    //Guarda el valor del radiobutton para verificar si mantiene la sesion activa o no
     public static void savePreferenceBoolean(Context c, boolean b, String key) {
         SharedPreferences preferences = c.getSharedPreferences(STRING_PREFERENCES, c.MODE_PRIVATE);
         preferences.edit().putBoolean(key, b).apply();
     }
 
+    //Guarda el valor del usuario ingresado
     public static void savePreferendceString(Context c, String b, String key) {
         SharedPreferences preferences = c.getSharedPreferences(STRING_PREFERENCES, c.MODE_PRIVATE);
         preferences.edit().putString(key, b).apply();

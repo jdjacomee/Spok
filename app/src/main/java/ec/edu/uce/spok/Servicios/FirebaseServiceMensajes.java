@@ -25,7 +25,7 @@ public class FirebaseServiceMensajes extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        //obtener datos de firebase
+        //obtener datos de firebase para las notificaciones
         String mensaje = remoteMessage.getData().get("mensaje");
         String hora = remoteMessage.getData().get("hora");
         String cabecera = remoteMessage.getData().get("cabecera");
@@ -39,6 +39,7 @@ public class FirebaseServiceMensajes extends FirebaseMessagingService {
         }
     }
 
+    //crea el mensaje que se mostrará en la notificacion
     private void mensaje(String mensaje, String hora, String emisor) {
         Intent i = new Intent(MensajeriaActivity.MENSAJE);
         i.putExtra("key_mensaje", mensaje);
@@ -47,6 +48,7 @@ public class FirebaseServiceMensajes extends FirebaseMessagingService {
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
     }
 
+    //metodo para mostrar las notificaciones
     private void showNotification(String cabecera, String cuerpo) {
         Intent i = new Intent(this, MensajeriaActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_ONE_SHOT);

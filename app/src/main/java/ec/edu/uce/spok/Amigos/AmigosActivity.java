@@ -37,8 +37,13 @@ import ec.edu.uce.spok.VolleyRP;
 
 public class AmigosActivity extends AppCompatActivity {
 
+    //URL del servicio web para listar los usuarios registrados en el sistema
     private final String URL_AMIGOS = "https://spok.000webhostapp.com/php/listarUsuariosNombresApellidos.php";
+
+    //URL del servicio web para cerrar sesion
     private final String URL_ELIMINAR_TOKEN = "https://spok.000webhostapp.com/php/eliminarTokenUsuario.php";
+
+
     private RecyclerView rv;
     private List<Amigos> amigosList;
     private AmigosAdapter adapter;
@@ -51,6 +56,7 @@ public class AmigosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_amigos);
 
+        //Activar el boton de retroceder en el Toolbar del activity
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {

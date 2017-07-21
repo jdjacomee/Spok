@@ -20,6 +20,7 @@ import java.util.HashMap;
 
 public class RegistroActivity extends AppCompatActivity {
 
+    //URL del servicio web al que se le hará la peticion de registro de usuarios
     private final String URL_REGISTRAR = "https://spok.000webhostapp.com/php/insertarUsuarios.php";
 
     private EditText etUsuario;
@@ -49,6 +50,7 @@ public class RegistroActivity extends AppCompatActivity {
         volleyRP = VolleyRP.getInstance(this);
         rq = volleyRP.getRequestQueue();
 
+        //accion del boton regsitrase
         btRegistrase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +62,7 @@ public class RegistroActivity extends AppCompatActivity {
                 String email = etEmail.getText().toString();
                 String numCel = etCelular.getText().toString();
 
+                //verifica que todos los campos esten completos
                 if (usu.equals("") || pass.equals("") || nombres.equals("") || apellidos.equals("") || email.equals("") || numCel.equals("")) {
                     Toast.makeText(RegistroActivity.this, "Todos los campos son requeridos", Toast.LENGTH_SHORT).show();
                 } else {

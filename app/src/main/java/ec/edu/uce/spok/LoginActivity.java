@@ -26,15 +26,20 @@ import ec.edu.uce.spok.Mensajeria.MensajeriaActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //Creamos las variables que vamos a usar del layout
     private EditText txtUser;
     private EditText txtPwd;
     private Button btnIngresar1;
     private Button btnRegistrarse1;
     private RadioButton noCerrarSesion;
+
+    //URL del servicio web para el login
     private static final String URL_LOGIN = "https://spok.000webhostapp.com/php/obtenerPorUsuario.php?usuario=";
 
+    //URL del servicio web para la creacion de tokens
     private static final String URL_TOKEN = "https://spok.000webhostapp.com/php/insertarActualizarToken.php";
 
+    //Otras variables que se usarán
     private VolleyRP volleyRP;
     private RequestQueue rq;
     private String USER = "";
@@ -46,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //Para verificar si el usuario activo la casilla de "No cerrar sesión"
+        //Si estuvo activada, ingresara a la aplicacion con el mismo usuario logueado
         if (Preferences.obtenerPreferenceBoolean(this, Preferences.PREFERENCE_ESTADO_BUTTON_SESION)) {
             Intent i = new Intent(LoginActivity.this, AmigosActivity.class);
             startActivity(i);
@@ -61,12 +68,13 @@ public class LoginActivity extends AppCompatActivity {
         volleyRP = VolleyRP.getInstance(this);
         rq = volleyRP.getRequestQueue();
 
-
+        //Accion del boton Iniciar Sesion
         btnIngresar1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String u = txtUser.getText().toString();
                 String p = txtPwd.getText().toString();
+                //Invocacion del método login
                 login(u, p);
             }
         });
@@ -84,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        //Accion del boton Registrarse
         btnRegistrarse1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    //Metodo login
     public void login(String user, String password) {
         USER = user;
         PASS = password;
@@ -103,6 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         solicitarJSON(URL_LOGIN + user);
     }
 
+    //Verificacion de la respuesta del servicio web
     public void verificarDatos(JSONObject datos) {
         try {
             //Se obtiene el estado del usuario desde la pagina del servidor
@@ -140,6 +150,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    //Creacion de token
     private void cargarToken(String token) {
         HashMap<String, String> hashMapToken = new HashMap<>();
         hashMapToken.put("usuario", USER);

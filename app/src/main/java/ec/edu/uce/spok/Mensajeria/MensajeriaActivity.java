@@ -42,6 +42,8 @@ public class MensajeriaActivity extends AppCompatActivity {
 
     public static final String MENSAJE = "MENSAJE";
     private BroadcastReceiver receiver;
+
+    //URL del servicio web al que se le hara una peticion para cerrar sesion
     private final String URL_ELIMINAR_TOKEN = "https://spok.000webhostapp.com/php/eliminarTokenUsuario.php";
 
     private RecyclerView rv;
@@ -59,6 +61,7 @@ public class MensajeriaActivity extends AppCompatActivity {
     private String EMISOR = "";
     private String RECEPTOR = "";
 
+    //URL del servicio web al que se le hara una peticion para enviar los mensajes
     private static final String URL_MENSAJERIA = "https://spok.000webhostapp.com/php/procesoMensajeria.php";
 
 
@@ -67,15 +70,17 @@ public class MensajeriaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mensajeria);
 
+        //Obtiene el usuario a quien se le enviará el mensaje
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
         if (bundle != null) {
             RECEPTOR = bundle.getString("key_receptor");
         }
 
-
+        //Obtiene el usuario con el que se está logueado
         EMISOR = Preferences.obtenerPreferenceString(this, Preferences.USUARIO_PREFERENCE);
 
+        //Activar el boton de retroceder en el Toolbar del activity
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -108,14 +113,18 @@ public class MensajeriaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //Obtiene la hora en la que se envia el mensaje
                 Calendar calendario = new GregorianCalendar();
                 int hora, minutos;
                 hora = calendario.get(Calendar.HOUR_OF_DAY);
                 minutos = calendario.get(Calendar.MINUTE);
                 String horat = hora + ":" + minutos;
 
+                //Convierte el texto ingresado en una cadena sin espacios al inicio y al final
                 String mensaje = etMensaje.getText().toString().trim();
 
+                //Verifica que el mensaje no este vacio y que el receptor que no esté vacio
+                //si los dos estan vacios el mensaje no se enviará
                 if (!mensaje.isEmpty() && !RECEPTOR.isEmpty()) {
                     MENSAJE_ENVIAR = mensaje;
                     enviarMensaje();

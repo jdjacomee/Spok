@@ -170,6 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+        //añadir la peticion
         VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
     }
 
@@ -187,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Error...", Toast.LENGTH_SHORT).show();
             }
         });
-
+        //añadir la peticion
         VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
     }
 }

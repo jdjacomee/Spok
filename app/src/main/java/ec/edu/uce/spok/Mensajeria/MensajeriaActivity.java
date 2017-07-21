@@ -123,17 +123,12 @@ public class MensajeriaActivity extends AppCompatActivity {
                     etMensaje.setText("");
                 }
 
-                //   if (token != null) {
-
-                //     Toast.makeText(MensajeriaActivity.this, "Mensaje enviado", Toast.LENGTH_SHORT).show();
-                //}
                 setScrollBarMensajes();
-
 
             }
         });
 
-
+        //componente que está destinado a recibir y responder ante eventos globales generados por el sistema
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -174,7 +169,6 @@ public class MensajeriaActivity extends AppCompatActivity {
 
     protected void onPause() {
         super.onPause();
-
         //pausar broadcast receiver
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
@@ -206,6 +200,7 @@ public class MensajeriaActivity extends AppCompatActivity {
         hashMapToken.put("receptor", RECEPTOR);
         hashMapToken.put("mensaje", MENSAJE_ENVIAR);
 
+        //declaracion de la solicitud para recuperar una parte de un objeto JSON
         JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_MENSAJERIA, new JSONObject(hashMapToken), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject datos) {
@@ -217,6 +212,7 @@ public class MensajeriaActivity extends AppCompatActivity {
                 Toast.makeText(MensajeriaActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+        //añadir la peticion
         VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
 
     }
@@ -231,6 +227,7 @@ public class MensajeriaActivity extends AppCompatActivity {
         HashMap<String, String> hmToken = new HashMap<>();
         hmToken.put("usuario", usu);
 
+        //declaracion de la solicitud para recuperar una parte de un objeto JSON
         JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_ELIMINAR_TOKEN, new JSONObject(hmToken), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject datos) {
@@ -252,6 +249,7 @@ public class MensajeriaActivity extends AppCompatActivity {
                 Toast.makeText(MensajeriaActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+        //añadir la peticion
         VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
     }
 

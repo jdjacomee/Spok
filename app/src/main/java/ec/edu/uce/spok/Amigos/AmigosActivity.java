@@ -109,6 +109,7 @@ public class AmigosActivity extends AppCompatActivity {
     }
 
     public void solicitarJSON() {
+        //declaracion de la solicitud para recuperar una parte de un objeto JSON
         JsonObjectRequest solicitud = new JsonObjectRequest(URL_AMIGOS, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject datos) {
@@ -135,6 +136,7 @@ public class AmigosActivity extends AppCompatActivity {
                 Toast.makeText(AmigosActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+        //añadir la peticion
         VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
     }
 
@@ -163,6 +165,7 @@ public class AmigosActivity extends AppCompatActivity {
                 Toast.makeText(AmigosActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+        //añadir la peticion
         VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
     }
 }

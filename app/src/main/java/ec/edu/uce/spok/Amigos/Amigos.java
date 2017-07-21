@@ -6,16 +6,16 @@ package ec.edu.uce.spok.Amigos;
 
 public class Amigos {
 
+    //Atributos de la clase Amigos
     private int fotoPerfil;
     private String usuario;
     private String nombresCompletos;
-    private String ultimoMensaje;
-    private String horaMensaje;
 
     public Amigos() {
 
     }
 
+    // Métodos get y set de los atributos
     public int getFotoPerfil() {
 
         return fotoPerfil;
@@ -45,24 +45,5 @@ public class Amigos {
         this.nombresCompletos = nombresCompletos;
     }
 
-    public String getUltimoMensaje() {
-
-        return ultimoMensaje;
-    }
-
-    public void setUltimoMensaje(String ultimoMensaje) {
-
-        this.ultimoMensaje = ultimoMensaje;
-    }
-
-    public String getHoraMensaje() {
-
-        return horaMensaje;
-    }
-
-    public void setHoraMensaje(String horaMensaje) {
-
-        this.horaMensaje = horaMensaje;
-    }
 
 }

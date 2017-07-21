@@ -52,14 +52,15 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
+        //inicialización de las variables
         txtUser = (EditText) findViewById(R.id.txtUsuario);
         txtPwd = (EditText) findViewById(R.id.txtPass);
         btnIngresar1 = (Button) findViewById(R.id.btnIngresar);
         btnRegistrarse1 = (Button) findViewById(R.id.btnRegistrarse);
         noCerrarSesion = (RadioButton) findViewById(R.id.rbNoCerrarSesion);
-
         volleyRP = VolleyRP.getInstance(this);
         rq = volleyRP.getRequestQueue();
+
 
         btnIngresar1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,8 +71,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        isActivateRadioButton = noCerrarSesion.isChecked(); //DESACTIVADO
-
+        //DESACTIVADO
+        isActivateRadioButton = noCerrarSesion.isChecked();
         noCerrarSesion.setOnClickListener(new View.OnClickListener() {
             //ACTIVADO
             @Override
@@ -82,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                 isActivateRadioButton = noCerrarSesion.isChecked();
             }
         });
+
 
         btnRegistrarse1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,11 +99,13 @@ public class LoginActivity extends AppCompatActivity {
     public void login(String user, String password) {
         USER = user;
         PASS = password;
+        //solictud de la cuenta del usuario
         solicitarJSON(URL_LOGIN + user);
     }
 
     public void verificarDatos(JSONObject datos) {
         try {
+            //Se obtiene el estado del usuario desde la pagina del servidor
             String seObtuvo = datos.getString("Obtenido");
             if (seObtuvo.equals("SI")) {
                 String datosUser = datos.getString("Usuario");
@@ -113,7 +117,8 @@ public class LoginActivity extends AppCompatActivity {
                     String token = FirebaseInstanceId.getInstance().getToken();
 
                     if (token != null) {
-                        //versiones de los android para los token
+
+                        // manejo de las versiones de los android para los token
                         if (("" + token.charAt(0)).equals("{")) {
                             JSONObject js = new JSONObject(token);
                             String tokenEditado = js.getString("token");
@@ -134,16 +139,20 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+
     private void cargarToken(String token) {
         HashMap<String, String> hashMapToken = new HashMap<>();
         hashMapToken.put("usuario", USER);
         hashMapToken.put("token", token);
 
+        //declaracion de la solicitud para recuperar una parte de un objeto JSON
         JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_TOKEN, new JSONObject(hashMapToken), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject datos) {
+
                 Preferences.savePreferenceBoolean(LoginActivity.this, noCerrarSesion.isChecked(), Preferences.PREFERENCE_ESTADO_BUTTON_SESION);
                 Preferences.savePreferendceString(LoginActivity.this, USER, Preferences.USUARIO_PREFERENCE);
+
                 String obtenido = "";
                 try {
                     obtenido = datos.getString("Resultado");
@@ -166,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void solicitarJSON(String URL) {
+        //declaracion de la solicitud para recuperar una parte de un objeto JSON
         JsonObjectRequest solicitud = new JsonObjectRequest(URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject datos) {
@@ -177,6 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Error...", Toast.LENGTH_SHORT).show();
             }
         });
+
         VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
     }
 }

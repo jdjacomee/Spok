@@ -33,6 +33,7 @@ public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigosView
 
     @Override
     public AmigosViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_amigos, parent, false);
         return new AmigosAdapter.AmigosViewHolder(v);
     }
@@ -41,11 +42,10 @@ public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigosView
     @Override
     public void onBindViewHolder(AmigosViewHolder holder, final int position) {
 
+        //configuraramos el contenido de las tarjetas del cardView
         holder.foto.setImageResource(amigoslist.get(position).getFotoPerfil());
         holder.usuario.setText(amigoslist.get(position).getUsuario());
         holder.nombresCompletos.setText(amigoslist.get(position).getNombresCompletos());
-        holder.ultmensaje.setText(amigoslist.get(position).getUltimoMensaje());
-        holder.horamensaje.setText(amigoslist.get(position).getHoraMensaje());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,29 +60,26 @@ public class AmigosAdapter extends RecyclerView.Adapter<AmigosAdapter.AmigosView
 
     @Override
     public int getItemCount() {
-
         //tamaño de la lista
         return amigoslist.size();
     }
 
 
-    //necesario para crear el AmigosAdapter
+    //Clase estática para poder hascer uso de RecyclerView.Adapter
     static class AmigosViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         ImageView foto;
         TextView usuario;
         TextView nombresCompletos;
-        TextView ultmensaje;
-        TextView horamensaje;
 
         public AmigosViewHolder(View itemView) {
             super(itemView);
+            //inicializacion de las variables
             cardView = (CardView) itemView.findViewById(R.id.cardViewAmigos);
             foto = (ImageView) itemView.findViewById(R.id.foto_amigos);
             usuario = (TextView) itemView.findViewById(R.id.tvamigos_usuarios);
             nombresCompletos = (TextView) itemView.findViewById(R.id.tvamigos_nombres_apellidos);
-            ultmensaje = (TextView) itemView.findViewById(R.id.tv_mensaje_amigos);
-            horamensaje = (TextView) itemView.findViewById(R.id.tv_hora_amigos);
+
         }
     }
 }

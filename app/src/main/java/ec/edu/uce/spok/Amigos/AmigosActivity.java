@@ -98,13 +98,11 @@ public class AmigosActivity extends AppCompatActivity {
         }
     }
 
-    public void agregarAmigo(int foto, String usuario, String nombre, String mensaje, String hora) {
+    public void agregarAmigo(int foto, String usuario, String nombre) {
         Amigos amigo = new Amigos();
         amigo.setFotoPerfil(foto);
         amigo.setUsuario(usuario);
         amigo.setNombresCompletos(nombre);
-        amigo.setUltimoMensaje(mensaje);
-        amigo.setHoraMensaje(hora);
         amigosList.add(amigo);
         //actualizar lista
         adapter.notifyDataSetChanged();
@@ -124,7 +122,7 @@ public class AmigosActivity extends AppCompatActivity {
                         if (!usuarioLogin.equals(usuario)) {
                             String nombres = object.getString("nombres");
                             String apellidos = object.getString("apellidos");
-                            agregarAmigo(R.drawable.usuario2, usuario, nombres + " " + apellidos, "mensaje" + i, "22:37");
+                            agregarAmigo(R.drawable.usuario2, usuario, nombres + " " + apellidos);
                         }
                     }
                 } catch (JSONException e) {

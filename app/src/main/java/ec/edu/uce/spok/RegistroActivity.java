@@ -45,7 +45,7 @@ public class RegistroActivity extends AppCompatActivity {
         etEmail = (EditText) findViewById(R.id.txtEmail);
         etCelular = (EditText) findViewById(R.id.txtCelular);
         btRegistrase = (Button) findViewById(R.id.btnEnviarMensaje);
-
+        //librería volley para el envío de peticiones http al servidor
         volleyRP = VolleyRP.getInstance(this);
         rq = volleyRP.getRequestQueue();
 
@@ -80,6 +80,7 @@ public class RegistroActivity extends AppCompatActivity {
         hmToken.put("email", email);
         hmToken.put("celular", numCel);
 
+        //declaracion de la solicitud para recuperar una parte de un objeto JSON
         JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_REGISTRAR, new JSONObject(hmToken), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject datos) {
@@ -101,6 +102,7 @@ public class RegistroActivity extends AppCompatActivity {
                 Toast.makeText(RegistroActivity.this, "Error...", Toast.LENGTH_SHORT).show();
             }
         });
+        //añadir la peticion
         VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
     }
 

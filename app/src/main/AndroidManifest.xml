@@ -33,11 +33,7 @@
         <activity
             android:name=".Amigos.AmigosActivity"
             android:configChanges="screenSize|orientation">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
         </activity>
 
 
@@ -54,7 +50,6 @@
         <!--tokens a enviar, enviar notificaciones, se actualizan cada segundo -->
         <service
             android:name=".Servicios.FirebaseId"
-
             android:enabled="true"
             android:exported="true">
 

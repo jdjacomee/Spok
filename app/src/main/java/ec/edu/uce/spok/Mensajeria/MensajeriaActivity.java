@@ -42,7 +42,6 @@ public class MensajeriaActivity extends AppCompatActivity {
 
     public static final String MENSAJE = "MENSAJE";
     private BroadcastReceiver receiver;
-    private final String URL_ELIMINAR = "https://spok.000webhostapp.com/php/insertarUsuarios.php";
     private final String URL_ELIMINAR_TOKEN = "https://spok.000webhostapp.com/php/eliminarTokenUsuario.php";
 
     private RecyclerView rv;
@@ -210,12 +209,12 @@ public class MensajeriaActivity extends AppCompatActivity {
         JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_MENSAJERIA, new JSONObject(hashMapToken), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject datos) {
-                //Toast.makeText(MensajeriaActivity.this, "Token se subio a la BD", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MensajeriaActivity.this, "Token se subio a la BD", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MensajeriaActivity.this, "Ocurrio un error fatal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MensajeriaActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         VolleyRP.addToQueue(solicitud, rq, this, volleyRP);

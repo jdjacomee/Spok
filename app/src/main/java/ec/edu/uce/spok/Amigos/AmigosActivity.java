@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -23,7 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import ec.edu.uce.spok.LoginActivity;
@@ -93,8 +91,7 @@ public class AmigosActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_cerrar_sesion:
                 Preferences.savePreferenceBoolean(AmigosActivity.this, false, Preferences.PREFERENCE_ESTADO_BUTTON_SESION);
-                String usuarioLogin = Preferences.obtenerPreferenceString(AmigosActivity.this, Preferences.USUARIO_PREFERENCE);
-                eliminarToken(usuarioLogin);
+                Preferences.savePreferendceString(AmigosActivity.this, null, Preferences.USUARIO_PREFERENCE);
                 Intent i = new Intent(AmigosActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
@@ -131,35 +128,6 @@ public class AmigosActivity extends AppCompatActivity {
                             String apellidos = object.getString("apellidos");
                             agregarAmigo(R.drawable.usuario2, usuario, nombres + " " + apellidos);
                         }
-                    }
-                } catch (JSONException e) {
-                    Toast.makeText(AmigosActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(AmigosActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        //añadir la peticion
-        VolleyRP.addToQueue(solicitud, rq, this, volleyRP);
-    }
-
-    private void eliminarToken(String usu) {
-        HashMap<String, String> hmToken = new HashMap<>();
-        hmToken.put("usuario", usu);
-
-        JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_ELIMINAR_TOKEN, new JSONObject(hmToken), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject datos) {
-                try {
-                    String estado = datos.getString("Eliminado");
-                    if (estado.equals("SI")) {
-                        Toast.makeText(AmigosActivity.this, "Eliminado con exito", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(AmigosActivity.this, "Algo", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     Toast.makeText(AmigosActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();

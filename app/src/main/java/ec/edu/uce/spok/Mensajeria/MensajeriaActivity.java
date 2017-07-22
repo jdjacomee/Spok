@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,6 +46,8 @@ public class MensajeriaActivity extends AppCompatActivity {
 
     //URL del servicio web al que se le hara una peticion para cerrar sesion
     private final String URL_ELIMINAR_TOKEN = "https://spok.000webhostapp.com/php/eliminarTokenUsuario.php";
+
+    private final String URL_LISTA_MENSAJES = "https://spok.000webhostapp.com/php/listarMensajes.php";
 
     private RecyclerView rv;
     private Button btnenviar;
@@ -108,6 +111,8 @@ public class MensajeriaActivity extends AppCompatActivity {
         adapter = new MensajeriaAdapter(listamensajes, this);
         rv.setAdapter(adapter);
 
+        recuperarMensajes();
+
 
         btnenviar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,8 +170,7 @@ public class MensajeriaActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_cerrar_sesion:
                 Preferences.savePreferenceBoolean(MensajeriaActivity.this, false, Preferences.PREFERENCE_ESTADO_BUTTON_SESION);
-                String usuarioLogin = Preferences.obtenerPreferenceString(MensajeriaActivity.this, Preferences.USUARIO_PREFERENCE);
-                eliminarToken(usuarioLogin);
+                Preferences.savePreferendceString(MensajeriaActivity.this, null, Preferences.USUARIO_PREFERENCE);
                 Intent i = new Intent(MensajeriaActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
@@ -232,21 +236,30 @@ public class MensajeriaActivity extends AppCompatActivity {
         rv.scrollToPosition(adapter.getItemCount() - 1);
     }
 
-    private void eliminarToken(String usu) {
-        HashMap<String, String> hmToken = new HashMap<>();
-        hmToken.put("usuario", usu);
-
+    public void recuperarMensajes() {
         //declaracion de la solicitud para recuperar una parte de un objeto JSON
-        JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_ELIMINAR_TOKEN, new JSONObject(hmToken), new Response.Listener<JSONObject>() {
+
+        HashMap<String, String> hmUsuario = new HashMap<>();
+        hmUsuario.put("usuario", EMISOR);
+        hmUsuario.put("amigo", RECEPTOR);
+
+        JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_LISTA_MENSAJES, new JSONObject(hmUsuario), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject datos) {
                 try {
-                    String estado = datos.getString("Eliminado");
-                    if (estado.equals("SI")) {
-                        Toast.makeText(MensajeriaActivity.this, "Eliminado con exito", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(MensajeriaActivity.this, "Algo", Toast.LENGTH_SHORT).show();
+                    String usuarios = datos.getString("Resultado");
+                    JSONArray jsonArrayUsuarios = new JSONArray(usuarios);
+                    for (int i = 0; i < jsonArrayUsuarios.length(); i++) {
+                        JSONObject object = jsonArrayUsuarios.getJSONObject(i);
+                        String mensaje = object.getString("mensaje");
+                        String tipoMensaje = object.getString("tipo_mensaje");
+                        String horaMensajeConsultada = object.getString("hora_del_mensaje");
+                        String horaMensajeMostrada = horaMensajeConsultada.substring(0, 5);
+                        if (tipoMensaje.equals("Enviado")) {
+                            crearMensaje(mensaje, horaMensajeMostrada, 1);
+                        } else if (tipoMensaje.equals("Recibido")) {
+                            crearMensaje(mensaje, horaMensajeMostrada, 2);
+                        }
                     }
                 } catch (JSONException e) {
                     Toast.makeText(MensajeriaActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();

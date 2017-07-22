@@ -148,10 +148,11 @@ public class MensajeriaActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
 
                 String mensaje = intent.getStringExtra("key_mensaje");
-                String hora = intent.getStringExtra("key_hora");
+                String horaRecibida = intent.getStringExtra("key_hora");
+                String horaMensajeMostrada = horaRecibida.substring(0, 5);
                 String emisor = intent.getStringExtra("key_emisor_php");
                 if (emisor.equals(RECEPTOR)) {
-                    crearMensaje(mensaje, hora, 2);
+                    crearMensaje(mensaje, horaMensajeMostrada, 2);
                 }
             }
         };
@@ -217,7 +218,7 @@ public class MensajeriaActivity extends AppCompatActivity {
         JsonObjectRequest solicitud = new JsonObjectRequest(Request.Method.POST, URL_MENSAJERIA, new JSONObject(hashMapToken), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject datos) {
-                Toast.makeText(MensajeriaActivity.this, "Token se subio a la BD", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MensajeriaActivity.this, "Mensaje enviado", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override

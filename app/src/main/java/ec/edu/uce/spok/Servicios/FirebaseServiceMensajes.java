@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -35,7 +36,7 @@ public class FirebaseServiceMensajes extends FirebaseMessagingService {
         String emisor = Preferences.obtenerPreferenceString(this, Preferences.USUARIO_PREFERENCE);
         if (emisor.equals(receptor)) {
             mensaje(mensaje, hora, emisorPHP);
-            showNotification(cabecera, cuerpo);
+            showNotification(cabecera, cuerpo, emisorPHP);
         }
     }
 
@@ -49,8 +50,9 @@ public class FirebaseServiceMensajes extends FirebaseMessagingService {
     }
 
     //metodo para mostrar las notificaciones
-    private void showNotification(String cabecera, String cuerpo) {
+    private void showNotification(String cabecera, String cuerpo, String emisor) {
         Intent i = new Intent(this, MensajeriaActivity.class);
+        i.putExtra("key_receptor", emisor);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_ONE_SHOT);
 
         Uri sonidonotificacion = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -67,7 +69,5 @@ public class FirebaseServiceMensajes extends FirebaseMessagingService {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());
-
-
     }
 }
